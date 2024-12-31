@@ -6,7 +6,8 @@ struct Library
 	*IFFParseBase,
 	*AslBase,
 	*IconBase,
-	*TimerBase;
+	*TimerBase,
+	*LocaleBase;
 
 #include <proto/exec.h>
 #include <proto/intuition.h>
@@ -22,6 +23,7 @@ struct Library
 #include "version.h"
 #include "savestate.h"
 #include "loader.h"
+#include "locale.h"
 
 
 STRPTR DefScreenTitle = "Untangle " VERSION " by RastPort " RELYEAR;
