@@ -1,14 +1,3 @@
-struct Library
-	*GfxBase,
-	*LayersBase,
-	*IntuitionBase,
-	*GadToolsBase,
-	*IFFParseBase,
-	*AslBase,
-	*IconBase,
-	*TimerBase,
-	*LocaleBase;
-
 #include <proto/exec.h>
 #include <proto/intuition.h>
 #include <proto/dos.h>
@@ -25,6 +14,18 @@ struct Library
 #include "loader.h"
 #include "locale.h"
 
+struct Library
+	*GfxBase,
+	*LayersBase,
+	*IntuitionBase,
+	*GadToolsBase,
+	*IFFParseBase,
+	*AslBase,
+	*IconBase,
+	*TimerBase,
+	*LocaleBase;
+
+struct Catalog *Cat;
 
 STRPTR DefScreenTitle = "Untangle " VERSION " by RastPort " RELYEAR;
 STRPTR DefWindowTitle = "Untangle";
@@ -471,7 +472,7 @@ static LONG HighScoreInit(struct App *app, struct WBStartup *wbmsg)
 
 /*---------------------------------------------------------------------------*/
 
-static LONG GetKickstartLibs(struct App *app, struct WBStartup *wbmsg)
+static LONG GetLibs(struct App *app, struct WBStartup *wbmsg)
 {
 	LONG result = SERR_SYSTEM_TOO_OLD;
 
@@ -494,7 +495,6 @@ static LONG GetKickstartLibs(struct App *app, struct WBStartup *wbmsg)
 							/* icon.library is optional */
 
 							IconBase = OpenLibrary("icon.library", 39);
-							//result = GetUntanglePrefs(app, wbmsg);
 							result = HighScoreInit(app, wbmsg);
 							if (IconBase) CloseLibrary(IconBase);
 							CloseLibrary(AslBase);
@@ -513,6 +513,26 @@ static LONG GetKickstartLibs(struct App *app, struct WBStartup *wbmsg)
 	return result;
 }
 
+/*---------------------------------------------------------------------------*/
+/* Locale library and catalog are optional, the game will proceed with       */
+/* built-in English strings if the library or translation is not available.  */
+/*---------------------------------------------------------------------------*/
+
+static LONG GetLocale(struct App *app, struct WBStartup *wbmsg)
+{
+	LONG result;
+
+	Cat = NULL;
+	LocaleBase = OpenLibrary("locale.library", 0);
+	if (LocaleBase) Cat = OpenCatalogA(NULL, "Untangle.catalog", NULL);
+	Printf("LocaleBase = $%08lx, Cat = $%08lx.\n", LocaleBase, Cat);
+	result = GetLibs(app, wbmsg);
+	if (LocaleBase && Cat) CloseCatalog(Cat);
+	if (LocaleBase) CloseLibrary(LocaleBase);
+	return result;
+}
+
+/*---------------------------------------------------------------------------*/
 
 static STRPTR StartupErrorMessages[] = {
 	"Can't open iffparse.library v39+.\n",
@@ -523,7 +543,6 @@ static STRPTR StartupErrorMessages[] = {
 	"Can't open timer.device.\n",
 	"Out of memory.\n"
 };
-
 
 static void ReportStartupError(LONG err)
 {
@@ -579,7 +598,7 @@ ULONG Main(struct WBStartup *wbmsg)
 	app.Selector.SigMask = 0;
 	HandleWorkbenchArgs(&app, wbmsg);
 
-	if (error = GetKickstartLibs(&app, wbmsg))
+	if (error = GetLocale(&app, wbmsg))
 	{
 		ReportStartupError(error);
 		result = RETURN_FAIL;
