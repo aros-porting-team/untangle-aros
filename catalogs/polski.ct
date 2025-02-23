@@ -1,0 +1,16 @@
+## version $VER: polski.catalog 1.2 (23.2.2025)
+## codeset 0
+## language polski
+;
+MSG_STARTUP_NO_IFFPARSE
+Brak biblioteki iffparse.library 39+.\n
+; Can't open iffparse.library v39+.\n
+;
+MSG_STARTUP_WINDOW_FAILED
+B³±d przy otwieraniu okna gry.\n
+; Can't open game window.\n
+;
+MSG_STARTUP_OUT_OF_CHIP_MEMORY
+Za ma³o pamiêci chip.\n
+; Out of chip memory.\n
+;

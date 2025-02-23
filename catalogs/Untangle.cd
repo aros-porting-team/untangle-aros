@@ -1,0 +1,10 @@
+; Untangle
+;
+MSG_STARTUP_NO_IFFPARSE (//)
+Can't open iffparse.library v39+.\n
+;
+MSG_STARTUP_WINDOW_FAILED(//)
+Can't open game window.\n
+;
+MSG_STARTUP_OUT_OF_CHIP_MEMORY(//)
+Out of chip memory.\n
