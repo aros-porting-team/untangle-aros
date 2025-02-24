@@ -1,9 +1,9 @@
-## version $VER: polski.catalog 1.2 (23.2.2025)
+## version $VER: Untangle.catalog 1.2 (23.2.2025)
 ## codeset 0
 ## language polski
 ;
 MSG_STARTUP_NO_IFFPARSE
-Brak biblioteki iffparse.library 39+.\n
+Nie mo¿na za³adowaæ biblioteki "iffparse.library" 39+.\n
 ; Can't open iffparse.library v39+.\n
 ;
 MSG_STARTUP_WINDOW_FAILED
@@ -13,4 +13,28 @@ B³±d przy otwieraniu okna gry.\n
 MSG_STARTUP_OUT_OF_CHIP_MEMORY
 Za ma³o pamiêci chip.\n
 ; Out of chip memory.\n
+;
+MSG_STARTUP_MENU_LAYOUT_FAILED
+Nie mo¿na stworzyæ menu (brak pamiêci?).\n
+; Can't create program menu (out of memory?).\n
+;
+MSG_STARTUP_NO_ASL
+Nie mo¿na za³adowaæ biblioteki "asl.library" 39+.\n
+; Can't open asl.library v39+.\n
+;
+MSG_STARTUP_NO_TIMER_DEVICE
+Nie mo¿na za³adowaæ "timer.device".\n
+; Can't open timer.device.\n
+;
+MSG_STARTUP_OUT_OF_MEMORY
+Brak pamiêci.\n
+; Out of memory.\n
+;
+MSG_REQ_EXIT_LEVEL_BODY
+Wyj¶æ z tego poziomu?
+; Exit current level?
+;
+MSG_REQ_EXIT_LEVEL_GADGETS
+Tak|Nie
+;Yes|No
 ;

@@ -27,7 +27,7 @@ struct Library
 
 struct Catalog *Cat;
 
-STRPTR DefScreenTitle = "Untangle " VERSION " by RastPort " RELYEAR;
+STRPTR DefScreenTitle = "Untangle " VERSION ", RastPort " RELYEAR;
 STRPTR DefWindowTitle = "Untangle";
 
 /*---------------------------------------------------------------------------*/
@@ -47,10 +47,12 @@ static BOOL UserRejectsLevelChange(struct App *app)
 		sizeof(struct EasyStruct),
 		0,
 		"Untangle",
-		"Exit current level?",
-		"Yes|No"
+		NULL,
+		NULL
 	};
 
+	es.es_TextFormat = LS(MSG_REQ_EXIT_LEVEL_BODY, "Exit current level?");
+	es.es_GadgetFormat = LS(MSG_REQ_EXIT_LEVEL_GADGETS, "Yes|No");
 	return (1 - EasyRequestArgs(app->Win, &es, NULL, NULL));
 }
 
@@ -525,7 +527,6 @@ static LONG GetLocale(struct App *app, struct WBStartup *wbmsg)
 	Cat = NULL;
 	LocaleBase = OpenLibrary("locale.library", 0);
 	if (LocaleBase) Cat = OpenCatalogA(NULL, "Untangle.catalog", NULL);
-	Printf("LocaleBase = $%08lx, Cat = $%08lx.\n", LocaleBase, Cat);
 	result = GetLibs(app, wbmsg);
 	if (LocaleBase && Cat) CloseCatalog(Cat);
 	if (LocaleBase) CloseLibrary(LocaleBase);
@@ -551,7 +552,7 @@ static void ReportStartupError(LONG err)
 	/* the best I can do is just a silent quit.                    */
 	/*-------------------------------------------------------------*/
  
-	if (err > 1) PutStr(StartupErrorMessages[err - 2]);
+	if (err > 1) PutStr(LS(err - 2, StartupErrorMessages[err - 2]));
 	return;
 }
 

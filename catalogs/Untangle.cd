@@ -1,10 +1,29 @@
 ; Untangle
 ;
-MSG_STARTUP_NO_IFFPARSE (//)
+MSG_STARTUP_NO_IFFPARSE (//80)
 Can't open iffparse.library v39+.\n
 ;
-MSG_STARTUP_WINDOW_FAILED(//)
+MSG_STARTUP_WINDOW_FAILED (//80)
 Can't open game window.\n
 ;
-MSG_STARTUP_OUT_OF_CHIP_MEMORY(//)
+MSG_STARTUP_OUT_OF_CHIP_MEMORY (//80)
 Out of chip memory.\n
+;
+MSG_STARTUP_MENU_LAYOUT_FAILED (//80)
+Can't create program menu (out of memory?).\n
+;
+MSG_STARTUP_NO_ASL (//80)
+Can't open asl.library v39+.\n
+;
+MSG_STARTUP_NO_TIMER_DEVICE (//80)
+Can't open timer.device.\n
+;
+MSG_STARTUP_OUT_OF_MEMORY (//80)
+Out of memory.\n
+;
+MSG_REQ_EXIT_LEVEL_BODY (//40)
+Exit current level?
+;
+MSG_REQ_EXIT_LEVEL_GADGETS (//24)
+Yes|No
+;
