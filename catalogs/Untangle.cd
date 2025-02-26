@@ -27,3 +27,18 @@ Exit current level?
 MSG_REQ_EXIT_LEVEL_GADGETS (//24)
 Yes|No
 ;
+MSG_MAINWIN_INFOBAR_SIZING (//)
+Intersections: 0000  Moves: 0000  Time: 000:00
+;
+MSG_ENDGAME_CONGRATULATIONS (//32)
+Congratulations!
+;
+MSG_ENDGAME_LEVELS_COMPLETED (//40)
+You have completed all the %ld levels.
+;
+MSG_ENDGAME_MOVES_TOTAL (//40)
+Your total number of moves: %ld.
+;
+MSG_ENDGAME_TIME_TOTAL (//40)
+Your total time: %ld:%02ld:%02ld.
+;

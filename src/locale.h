@@ -6,9 +6,9 @@
 extern struct Library *LocaleBase;
 extern struct Catalog *Cat;
 
-static inline CONST_STRPTR LS(int lid, CONST_STRPTR defstr)
+static inline STRPTR LS(int lid, STRPTR defstr)
 {
-	return (LocaleBase ? (CONST_STRPTR)(GetCatalogStr(Cat, lid, defstr)) : defstr);
+	return (LocaleBase ? GetCatalogStr(Cat, lid, defstr) : defstr);
 }
 
 #define MSG_STARTUP_NO_IFFPARSE           0
@@ -20,3 +20,8 @@ static inline CONST_STRPTR LS(int lid, CONST_STRPTR defstr)
 #define MSG_STARTUP_OUT_OF_MEMORY         6
 #define MSG_REQ_EXIT_LEVEL_BODY           7
 #define MSG_REQ_EXIT_LEVEL_GADGETS        8
+#define MSG_MAINWIN_INFOBAR_SIZING        9
+#define MSG_ENDGAME_CONGRATULATIONS      10
+#define MSG_ENDGAME_LEVELS_COMPLETED     11
+#define MSG_ENDGAME_MOVES_TOTAL          12
+#define MSG_ENDGAME_TIME_TOTAL           13

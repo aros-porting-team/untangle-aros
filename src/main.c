@@ -313,7 +313,8 @@ static LONG GetScreenFont(struct App *app)
 
 LONG CalculateMinWidth(struct App *app, struct Screen *wb)
 {
-	STRPTR sstr = "Intersections: 0000  Moves: 0000  Time: 000:00";
+	STRPTR sstr = LS(MSG_MAINWIN_INFOBAR_SIZING,
+		"Intersections: 0000  Moves: 0000  Time: 000:00");
 
 	return (TextLength(&wb->RastPort, sstr, StrLen(sstr)) + (app->DotWidth & ~1));
 }
@@ -331,8 +332,8 @@ struct TagItem wintags[] = {
 	{ WA_CloseGadget, TRUE },
 	{ WA_DepthGadget, TRUE },
 	{ WA_SizeGadget, TRUE },
-	{ WA_Title, 0 /* DefWindowTitle */ },
-	{ WA_ScreenTitle, 0 /* DefScreenTitle */ },
+	{ WA_Title, 0 },
+	{ WA_ScreenTitle, 0 },
 	{ WA_IDCMP, IDCMP_CLOSEWINDOW | IDCMP_MENUPICK | IDCMP_NEWSIZE | IDCMP_MOUSEBUTTONS
 	  | IDCMP_MOUSEMOVE | IDCMP_SIZEVERIFY | IDCMP_CHANGEWINDOW },
 	{ WA_NewLookMenus, TRUE },

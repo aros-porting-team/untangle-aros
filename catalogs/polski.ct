@@ -38,3 +38,23 @@ MSG_REQ_EXIT_LEVEL_GADGETS
 Tak|Nie
 ;Yes|No
 ;
+MSG_MAINWIN_INFOBAR_SIZING
+Przeciêcia: 0000  Ruchy: 0000  Czas: 000:00
+;Intersections: 0000  Moves: 0000  Time: 000:00
+;
+MSG_ENDGAME_CONGRATULATIONS
+Gratulacje!
+;Congratulations!
+;
+MSG_ENDGAME_LEVELS_COMPLETED
+Wszystkie %ld poziomów rozwi±zane.
+;You have completed all the %ld levels.
+;
+MSG_ENDGAME_MOVES_TOTAL
+Twoja ca³kowita ilo¶æ ruchów: %ld.
+;Your total number of moves: %ld.
+;
+MSG_ENDGAME_TIME_TOTAL
+Twój ³±czny czas gry: %ld:%02ld:%02ld.
+;Your total time: %ld:%02ld:%02ld.
+;
