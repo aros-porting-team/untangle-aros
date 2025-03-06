@@ -25,3 +25,7 @@ static inline STRPTR LS(int lid, STRPTR defstr)
 #define MSG_ENDGAME_LEVELS_COMPLETED     11
 #define MSG_ENDGAME_MOVES_TOTAL          12
 #define MSG_ENDGAME_TIME_TOTAL           13
+#define MSG_SCREEN_TITLE                 14
+#define MSG_MAIN_WINDOW_TITLE            15
+#define MSG_LEVEL_INFOBAR_TEXT           16
+

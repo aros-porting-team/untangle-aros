@@ -4,6 +4,7 @@
 #include "strutils.h"
 #include "version.h"
 #include "endgame.h"
+#include "locale.h"
 
 #include <proto/exec.h>
 #include <proto/graphics.h>
@@ -375,16 +376,16 @@ void UpdateInfosAfterLevelLoad(struct App *app)
 {
 	STRPTR title;
 
-	if (title = FmtNew("Untangle " VERSION ": %s by %s", (LONG)app->Level->LevelSetName,
-	(LONG)app->Level->LevelSetAuthor))
+	if (title = FmtNew(LS(MSG_SCREEN_TITLE, "Untangle %s: %s by %s"), (LONG)VERSION,
+	(LONG)app->Level->LevelSetName, (LONG)app->Level->LevelSetAuthor))
 	{
 		if (app->DynamicScreenTitle) StrFree(app->DynamicScreenTitle);
 		app->DynamicScreenTitle = title;
 		app->Selector.ScreenTitle = title;
 	}
 
-	if (title = FmtNew("Untangle: %s, Level %ld", (LONG)app->Level->LevelSetName,
-	app->LevelNumber))
+	if (title = FmtNew(LS(MSG_MAIN_WINDOW_TITLE, "Untangle: %s, Level %ld"),
+	(LONG)app->Level->LevelSetName, app->LevelNumber))
 	{
 		if (app->DynamicWindowTitle) StrFree(app->DynamicWindowTitle);
 		app->DynamicWindowTitle = title;
@@ -433,8 +434,8 @@ static void PrintLevelInfo(struct App *app)
 
 	if (app->Level)
 	{
-		app->CurrentInfoText = FmtNew("Intersections: %ld  Moves: %ld  Time: ",
-			app->Level->InterCount, app->Level->MoveCount);
+		app->CurrentInfoText = FmtNew(LS(MSG_LEVEL_INFOBAR_TEXT, "Intersections: %ld  Moves: %ld"
+		"  Time: "), app->Level->InterCount, app->Level->MoveCount);
 		SetDrMd(rp, JAM2);
 		SetAPen(rp, 1);
 		SetBPen(rp, 0);

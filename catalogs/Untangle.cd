@@ -41,4 +41,17 @@ Your total number of moves: %ld.
 ;
 MSG_ENDGAME_TIME_TOTAL (//40)
 Your total time: %ld:%02ld:%02ld.
+; hours, minutes, seconds
+;
+MSG_SCREEN_TITLE (//40)
+Untangle %s: %s by %s
+; game version, level set name, level set author
+;
+MSG_MAIN_WINDOW_TITLE (//24)
+Untangle: %s, Level %ld
+; level set name, level number
+;
+MSG_LEVEL_INFOBAR_TEXT (//40)
+Intersections: %ld  Moves: %ld  Time: 
+; one space at end!
 ;
