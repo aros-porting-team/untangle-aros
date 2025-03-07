@@ -156,3 +156,15 @@ MSG_MENUITEM_QUIT_KEY
 Q
 ;Q
 ;
+MSG_LEVEL_LIST_LEVEL
+Poziom
+;Level
+;
+MSG_LEVEL_LIST_MOVES
+Ruchy
+;Moves
+;
+MSG_LEVEL_LIST_TIME
+Czas
+;Time
+;
