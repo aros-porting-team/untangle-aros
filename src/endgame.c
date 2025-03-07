@@ -5,6 +5,7 @@
 #include "main.h"
 #include "strutils.h"
 #include "selector.h"
+#include "locale.h"
 
 #include <proto/exec.h>
 #include <proto/graphics.h>
@@ -187,10 +188,13 @@ BOOL PrepareTexts(struct App *app, struct EndGameText *texts)
 	minutes = div16(seconds, 60);
 	seconds -= mul16(minutes, 60);
 
-	texts[0].text = "Congratulations!";
-	texts[1].text = FmtNew("You have completed all the %ld levels.", app->LevelNumber - 1);
-	texts[2].text = FmtNew("Your total number of moves: %ld.", moves);
-	texts[3].text = FmtNew("Your total time: %ld:%02ld:%02ld.", hours, minutes, seconds);
+	texts[0].text = LS(MSG_ENDGAME_CONGRATULATIONS, "Congratulations!");
+	texts[1].text = FmtNew(LS(MSG_ENDGAME_LEVELS_COMPLETED, 
+		"You have completed all the %ld levels."), app->LevelNumber - 1);
+	texts[2].text = FmtNew(LS(MSG_ENDGAME_MOVES_TOTAL,
+		"Your total number of moves: %ld."), moves);
+	texts[3].text = FmtNew(LS(MSG_ENDGAME_TIME_TOTAL,
+		"Your total time: %ld:%02ld:%02ld."), hours, minutes, seconds);
 
 	if (texts[1].text && texts[2].text && texts[3].text)
 	{

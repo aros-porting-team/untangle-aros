@@ -1,13 +1,3 @@
-struct Library
-	*GfxBase,
-	*LayersBase,
-	*IntuitionBase,
-	*GadToolsBase,
-	*IFFParseBase,
-	*AslBase,
-	*IconBase,
-	*TimerBase;
-
 #include <proto/exec.h>
 #include <proto/intuition.h>
 #include <proto/dos.h>
@@ -22,9 +12,22 @@ struct Library
 #include "version.h"
 #include "savestate.h"
 #include "loader.h"
+#include "locale.h"
 
+struct Library
+	*GfxBase,
+	*LayersBase,
+	*IntuitionBase,
+	*GadToolsBase,
+	*IFFParseBase,
+	*AslBase,
+	*IconBase,
+	*TimerBase,
+	*LocaleBase;
 
-STRPTR DefScreenTitle = "Untangle " VERSION " by RastPort " RELYEAR;
+struct Catalog *Cat;
+
+STRPTR DefScreenTitle = "Untangle " VERSION ", RastPort " RELYEAR;
 STRPTR DefWindowTitle = "Untangle";
 
 /*---------------------------------------------------------------------------*/
@@ -44,10 +47,12 @@ static BOOL UserRejectsLevelChange(struct App *app)
 		sizeof(struct EasyStruct),
 		0,
 		"Untangle",
-		"Exit current level?",
-		"Yes|No"
+		NULL,
+		NULL
 	};
 
+	es.es_TextFormat = LS(MSG_REQ_EXIT_LEVEL_BODY, "Exit current level?");
+	es.es_GadgetFormat = LS(MSG_REQ_EXIT_LEVEL_GADGETS, "Yes|No");
 	return (1 - EasyRequestArgs(app->Win, &es, NULL, NULL));
 }
 
@@ -308,7 +313,8 @@ static LONG GetScreenFont(struct App *app)
 
 LONG CalculateMinWidth(struct App *app, struct Screen *wb)
 {
-	STRPTR sstr = "Intersections: 0000  Moves: 0000  Time: 000:00";
+	STRPTR sstr = LS(MSG_MAINWIN_INFOBAR_SIZING,
+		"Intersections: 0000  Moves: 0000  Time: 000:00");
 
 	return (TextLength(&wb->RastPort, sstr, StrLen(sstr)) + (app->DotWidth & ~1));
 }
@@ -326,8 +332,8 @@ struct TagItem wintags[] = {
 	{ WA_CloseGadget, TRUE },
 	{ WA_DepthGadget, TRUE },
 	{ WA_SizeGadget, TRUE },
-	{ WA_Title, 0 /* DefWindowTitle */ },
-	{ WA_ScreenTitle, 0 /* DefScreenTitle */ },
+	{ WA_Title, 0 },
+	{ WA_ScreenTitle, 0 },
 	{ WA_IDCMP, IDCMP_CLOSEWINDOW | IDCMP_MENUPICK | IDCMP_NEWSIZE | IDCMP_MOUSEBUTTONS
 	  | IDCMP_MOUSEMOVE | IDCMP_SIZEVERIFY | IDCMP_CHANGEWINDOW },
 	{ WA_NewLookMenus, TRUE },
@@ -469,7 +475,7 @@ static LONG HighScoreInit(struct App *app, struct WBStartup *wbmsg)
 
 /*---------------------------------------------------------------------------*/
 
-static LONG GetKickstartLibs(struct App *app, struct WBStartup *wbmsg)
+static LONG GetLibs(struct App *app, struct WBStartup *wbmsg)
 {
 	LONG result = SERR_SYSTEM_TOO_OLD;
 
@@ -492,7 +498,6 @@ static LONG GetKickstartLibs(struct App *app, struct WBStartup *wbmsg)
 							/* icon.library is optional */
 
 							IconBase = OpenLibrary("icon.library", 39);
-							//result = GetUntanglePrefs(app, wbmsg);
 							result = HighScoreInit(app, wbmsg);
 							if (IconBase) CloseLibrary(IconBase);
 							CloseLibrary(AslBase);
@@ -511,6 +516,30 @@ static LONG GetKickstartLibs(struct App *app, struct WBStartup *wbmsg)
 	return result;
 }
 
+/*---------------------------------------------------------------------------*/
+/* Locale library and catalog are optional, the game will proceed with       */
+/* built-in English strings if the library or translation is not available.  */
+/*---------------------------------------------------------------------------*/
+
+static LONG GetLocale(struct App *app, struct WBStartup *wbmsg)
+{
+	LONG result;
+
+	Cat = NULL;
+	LocaleBase = OpenLibrary("locale.library", 0);
+	if (LocaleBase) Cat = OpenCatalogA(NULL, "Untangle.catalog", NULL);
+	result = GetLibs(app, wbmsg);
+
+	if (LocaleBase)
+	{
+		CloseCatalog(Cat);
+		CloseLibrary(LocaleBase);
+	}
+
+	return result;
+}
+
+/*---------------------------------------------------------------------------*/
 
 static STRPTR StartupErrorMessages[] = {
 	"Can't open iffparse.library v39+.\n",
@@ -522,7 +551,6 @@ static STRPTR StartupErrorMessages[] = {
 	"Out of memory.\n"
 };
 
-
 static void ReportStartupError(LONG err)
 {
 	/*-------------------------------------------------------------*/
@@ -530,7 +558,7 @@ static void ReportStartupError(LONG err)
 	/* the best I can do is just a silent quit.                    */
 	/*-------------------------------------------------------------*/
  
-	if (err > 1) PutStr(StartupErrorMessages[err - 2]);
+	if (err > 1) PutStr(LS(err - 2, StartupErrorMessages[err - 2]));
 	return;
 }
 
@@ -577,7 +605,7 @@ ULONG Main(struct WBStartup *wbmsg)
 	app.Selector.SigMask = 0;
 	HandleWorkbenchArgs(&app, wbmsg);
 
-	if (error = GetKickstartLibs(&app, wbmsg))
+	if (error = GetLocale(&app, wbmsg))
 	{
 		ReportStartupError(error);
 		result = RETURN_FAIL;

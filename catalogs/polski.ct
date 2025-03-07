@@ -1,0 +1,170 @@
+## version $VER: Untangle.catalog 1.2 (7.3.2025)
+## codeset 0
+## language polski
+;
+MSG_STARTUP_NO_IFFPARSE
+Nie mo¿na za³adowaæ biblioteki "iffparse.library" 39+.\n
+; Can't open iffparse.library v39+.\n
+;
+MSG_STARTUP_WINDOW_FAILED
+B³±d przy otwieraniu okna gry.\n
+; Can't open game window.\n
+;
+MSG_STARTUP_OUT_OF_CHIP_MEMORY
+Za ma³o pamiêci chip.\n
+; Out of chip memory.\n
+;
+MSG_STARTUP_MENU_LAYOUT_FAILED
+Nie mo¿na stworzyæ menu (brak pamiêci?).\n
+; Can't create program menu (out of memory?).\n
+;
+MSG_STARTUP_NO_ASL
+Nie mo¿na za³adowaæ biblioteki "asl.library" 39+.\n
+; Can't open asl.library v39+.\n
+;
+MSG_STARTUP_NO_TIMER_DEVICE
+Nie mo¿na za³adowaæ "timer.device".\n
+; Can't open timer.device.\n
+;
+MSG_STARTUP_OUT_OF_MEMORY
+Brak pamiêci.\n
+; Out of memory.\n
+;
+MSG_REQ_EXIT_LEVEL_BODY
+Wyj¶æ z tego poziomu?
+; Exit current level?
+;
+MSG_REQ_EXIT_LEVEL_GADGETS
+Tak|Nie
+;Yes|No
+;
+MSG_MAINWIN_INFOBAR_SIZING
+Przeciêcia: 0000  Ruchy: 0000  Czas: 000:00
+;Intersections: 0000  Moves: 0000  Time: 000:00
+;
+MSG_ENDGAME_CONGRATULATIONS
+Gratulacje!
+;Congratulations!
+;
+MSG_ENDGAME_LEVELS_COMPLETED
+Wszystkie %ld poziomów rozwi±zane.
+;You have completed all the %ld levels.
+;
+MSG_ENDGAME_MOVES_TOTAL
+Twoja ca³kowita ilo¶æ ruchów: %ld.
+;Your total number of moves: %ld.
+;
+MSG_ENDGAME_TIME_TOTAL
+Twój ³±czny czas gry: %ld:%02ld:%02ld.
+;Your total time: %ld:%02ld:%02ld.
+;
+MSG_SCREEN_TITLE
+Umtangle %s: %s, %s
+;Untangle %s: %s by %s
+;
+MSG_MAIN_WINDOW_TITLE
+Untangle: %s, poziom %ld
+;Untangle: %s, Level %ld
+MSG_LEVEL_INFOBAR_TEXT
+przeciêcia: %ld  ruchy: %ld  czas: 
+;Intersections: %ld  Moves: %ld  Time: 
+;
+MSG_LOAD_ERROR_NO_MEMORY
+Brak pamiêci.
+;Out of memory.
+;
+MSG_LOAD_ERROR_OPEN_FAILED
+B³±d otwierania pliku \"StandardSet.iff\":\n%s.
+;Can't open level set \"StandardSet.iff\":\n%s.
+;
+MSG_LOAD_ERROR_NO_DOTS_CHUNK
+Brak bloku 'DOTS' w poziomie gry.
+;No 'DOTS' chunk found in level.
+;
+MSG_LOAD_ERROR_NO_LINE_CHUNK
+Brak bloku 'LINE' w poziomie gry.
+;No 'LINE' chunk found in level.
+;
+MSG_LOAD_ERROR_LINE_BEFORE_DOTS
+Blok 'LINE' napotkano przed blokiem 'DOTS'.
+;'LINE' chunk encountered before 'DOTS' one.
+;
+MSG_LOAD_ERROR_TOO_MANY_DOTS
+W poziomie zdefiniowano wiêcej, ni¿ 256 kropek.
+;More than 256 dots defined in the file.
+;
+MSG_LOAD_ERROR_NEGATIVE_COORDS
+Niedozwolone ujemne wspó³rzêdne kropek.
+;Negative dot coordinates are not allowed.
+;
+MSG_LOAD_ERROR_BAD_DOT_INDEX
+Numer nieistnej±cej kropki w definicji linii.
+;Index of non-existent dot in a line definition.
+;
+MSG_LOAD_ERROR_DUPLICATE_LINE
+Wykryto duplikat linii.
+;Duplicate line detected.
+;
+MSG_LOAD_ERROR_NO_MORE_LEVELS
+Koniec pliku, nie ma wiêcej poziomów.
+;No more levels in set.
+;
+MSG_LOAD_ERROR_REQ_TITLE
+Untangle: b³±d ³adowania poziomu
+;Untangle Level Loader
+;
+MSG_LOAD_ERROR_OK_BUTTON
+OK
+;OK
+;
+MSG_LOAD_ERROR_IFFPARSE
+B³±d %ld struktury pliku IFF.
+;IFF structure parsing error %ld.
+;
+MSG_MENU_GAME
+Gra
+;Game
+;
+MSG_MENUITEM_NEW_GAME
+Nowa
+;New
+;
+MSG_MENUITEM_NEW_GAME_KEY
+N
+;N
+MSG_MENUITEM_LEVEL_LIST
+Lista poziomów...
+;Level List...
+;
+MSG_MENUITEM_LEVEL_LIST_KEY
+L
+;L
+;
+MSG_MENUITEM_SAVE_LEVEL
+Zapisz poziom...
+;Save Level...
+;
+MSG_MENUITEM_SAVE_LEVEL_KEY
+S
+;S
+;
+MSG_MENUITEM_QUIT
+Skoñcz
+;Quit
+;
+MSG_MENUITEM_QUIT_KEY
+Q
+;Q
+;
+MSG_LEVEL_LIST_LEVEL
+Poziom
+;Level
+;
+MSG_LEVEL_LIST_MOVES
+Ruchy
+;Moves
+;
+MSG_LEVEL_LIST_TIME
+Czas
+;Time
+;

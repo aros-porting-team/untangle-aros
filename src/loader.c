@@ -4,6 +4,7 @@
 
 #include "loader.h"
 #include "strutils.h"
+#include "locale.h"
 
 #include <proto/exec.h>
 #include <proto/dos.h>
@@ -308,11 +309,14 @@ static void ReportLoadError(struct Window *gwin, LONG err)
 	struct EasyStruct es = {
 		sizeof(struct EasyStruct),
 		0,
-		"Untangle Level Loader",
 		NULL,
-		"OK"
+		NULL,
+		NULL
 	};
 
+	es.es_Title = LS(MSG_LOAD_ERROR_REQ_TITLE, "Untangle Level Loader");
+	es.es_GadgetFormat = LS(MSG_LOAD_ERROR_OK_BUTTON, "OK");
+	
 	if (err == LERR_FILE_OPEN_FAILED)
 	{
 		Fault(IoErr(), "", doserrbuf, 88);
@@ -325,10 +329,12 @@ static void ReportLoadError(struct Window *gwin, LONG err)
 
 	if ((err < 0) && (err >= IFF_RETURN2CLIENT))
 	{
-		es.es_TextFormat = "IFF structure parsing error %ld.";
+		es.es_TextFormat = LS(MSG_LOAD_ERROR_IFFPARSE,
+			"IFF structure parsing error %ld.");
 		extrainfo = (STRPTR)err; 
 	}
-	else es.es_TextFormat = LoadErrorMessages[err - 1];	
+	else es.es_TextFormat = LS(MSG_LOAD_ERROR_NO_MEMORY + err - 1,
+		LoadErrorMessages[err - 1]);	
 
 	EasyRequest(gwin, &es, NULL, (LONG)extrainfo);
 }
