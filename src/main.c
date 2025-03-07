@@ -529,8 +529,13 @@ static LONG GetLocale(struct App *app, struct WBStartup *wbmsg)
 	LocaleBase = OpenLibrary("locale.library", 0);
 	if (LocaleBase) Cat = OpenCatalogA(NULL, "Untangle.catalog", NULL);
 	result = GetLibs(app, wbmsg);
-	if (LocaleBase && Cat) CloseCatalog(Cat);
-	if (LocaleBase) CloseLibrary(LocaleBase);
+
+	if (LocaleBase)
+	{
+		CloseCatalog(Cat);
+		CloseLibrary(LocaleBase);
+	}
+
 	return result;
 }
 
