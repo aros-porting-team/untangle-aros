@@ -94,3 +94,30 @@ OK
 MSG_LOAD_ERROR_IFFPARSE (//40)
 IFF structure parsing error %ld.
 ;
+MSG_MENU_GAME (//)
+Game
+;
+MSG_MENUITEM_NEW_GAME (//)
+New
+;
+MSG_MENUITEM_NEW_GAME_KEY (//)
+N
+;
+MSG_MENUITEM_LEVEL_LIST (//)
+Level List...
+;
+MSG_MENUITEM_LEVEL_LIST_KEY (//)
+L
+;
+MSG_MENUITEM_SAVE_LEVEL (//)
+Save Level...
+;
+MSG_MENUITEM_SAVE_LEVEL_KEY (//)
+S
+;
+MSG_MENUITEM_QUIT (//)
+Quit
+;
+MSG_MENUITEM_QUIT_KEY (//)
+Q
+;

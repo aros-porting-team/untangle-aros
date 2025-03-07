@@ -3,6 +3,7 @@
 #include "selector.h"
 #include "loader.h"
 #include "savelevel.h"
+#include "locale.h"
 
 #include <proto/intuition.h>
 #include <proto/gadtools.h>
@@ -13,14 +14,28 @@
 #define ACTION_SAVE_LEVEL     46
 
 struct NewMenu AppMenu[] = {
-	{ NM_TITLE, "Project", 0, 0, 0, 0 },
-	{ NM_ITEM, "New Game", "N", 0, 0, (APTR)ACTION_NEW },
-	{ NM_ITEM, "Level Selector...", "L", 0, 0, (APTR)ACTION_SELECT_LEVEL },
-	{ NM_ITEM, "Save Level...", "S", 0, 0, (APTR)ACTION_SAVE_LEVEL },
+	{ NM_TITLE, NULL, 0, 0, 0, 0 },
+	{ NM_ITEM, NULL, NULL, 0, 0, (APTR)ACTION_NEW },
+	{ NM_ITEM, NULL, NULL, 0, 0, (APTR)ACTION_SELECT_LEVEL },
+	{ NM_ITEM, NULL, NULL, 0, 0, (APTR)ACTION_SAVE_LEVEL },
 	{ NM_ITEM, NM_BARLABEL, 0, 0, 0, 0},
-	{ NM_ITEM, "Quit", "Q", 0, 0, (APTR)ACTION_QUIT },
+	{ NM_ITEM, NULL, NULL, 0, 0, (APTR)ACTION_QUIT },
 	{ NM_END, NULL, 0, 0, 0, 0 }
 };
+
+
+static void LocalizeMenu(void)
+{
+	AppMenu[0].nm_Label = LS(MSG_MENU_GAME, "Game");
+	AppMenu[1].nm_Label = LS(MSG_MENUITEM_NEW_GAME, "New");
+	AppMenu[1].nm_CommKey = LS(MSG_MENUITEM_NEW_GAME_KEY, "N");
+	AppMenu[2].nm_Label = LS(MSG_MENUITEM_LEVEL_LIST, "Level List...");
+	AppMenu[2].nm_CommKey = LS(MSG_MENUITEM_LEVEL_LIST_KEY, "L");
+	AppMenu[3].nm_Label = LS(MSG_MENUITEM_SAVE_LEVEL, "Save Level...");
+	AppMenu[3].nm_CommKey = LS(MSG_MENUITEM_SAVE_LEVEL_KEY, "L");
+	AppMenu[5].nm_Label = LS(MSG_MENUITEM_QUIT, "Quit");
+	AppMenu[5].nm_CommKey = LS(MSG_MENUITEM_QUIT_KEY, "Q");
+}
 
 
 static BOOL Action(struct App *app, ULONG action)
@@ -73,11 +88,12 @@ BOOL HandleMenu(struct App *app, UWORD menucode)
 }
 
 
-
 LONG SetupMenus(struct App *app)
 {
 	LONG err = SERR_MENU_LAYOUT;
 	APTR vi;
+
+	LocalizeMenu();
 
 	if (vi = GetVisualInfo(app->Win->WScreen, TAG_END))
 	{

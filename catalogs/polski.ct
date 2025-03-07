@@ -121,3 +121,38 @@ MSG_LOAD_ERROR_IFFPARSE
 B³±d %ld struktury pliku IFF.
 ;IFF structure parsing error %ld.
 ;
+MSG_MENU_GAME
+Gra
+;Game
+;
+MSG_MENUITEM_NEW_GAME
+Nowa
+;New
+;
+MSG_MENUITEM_NEW_GAME_KEY
+N
+;N
+MSG_MENUITEM_LEVEL_LIST
+Lista poziomów...
+;Level List...
+;
+MSG_MENUITEM_LEVEL_LIST_KEY
+L
+;L
+;
+MSG_MENUITEM_SAVE_LEVEL
+Zapisz poziom...
+;Save Level...
+;
+MSG_MENUITEM_SAVE_LEVEL_KEY
+S
+;S
+;
+MSG_MENUITEM_QUIT
+Skoñcz
+;Quit
+;
+MSG_MENUITEM_QUIT_KEY
+Q
+;Q
+;

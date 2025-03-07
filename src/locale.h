@@ -41,3 +41,12 @@ static inline STRPTR LS(int lid, STRPTR defstr)
 #define MSG_LOAD_ERROR_REQ_TITLE         27
 #define MSG_LOAD_ERROR_OK_BUTTON         28
 #define MSG_LOAD_ERROR_IFFPARSE          29
+#define MSG_MENU_GAME                    30
+#define MSG_MENUITEM_NEW_GAME            31
+#define MSG_MENUITEM_NEW_GAME_KEY        32
+#define MSG_MENUITEM_LEVEL_LIST          33
+#define MSG_MENUITEM_LEVEL_LIST_KEY      34
+#define MSG_MENUITEM_SAVE_LEVEL          35
+#define MSG_MENUITEM_SAVE_LEVEL_KEY      36
+#define MSG_MENUITEM_QUIT                37
+#define MSG_MENUITEM_QUIT_KEY            38
