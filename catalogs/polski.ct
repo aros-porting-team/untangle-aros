@@ -69,3 +69,55 @@ MSG_LEVEL_INFOBAR_TEXT
 przeciêcia: %ld  ruchy: %ld  czas: 
 ;Intersections: %ld  Moves: %ld  Time: 
 ;
+MSG_LOAD_ERROR_NO_MEMORY
+Brak pamiêci.
+;Out of memory.
+;
+MSG_LOAD_ERROR_OPEN_FAILED
+B³±d otwierania pliku \"StandardSet.iff\":\n%s.
+;Can't open level set \"StandardSet.iff\":\n%s.
+;
+MSG_LOAD_ERROR_NO_DOTS_CHUNK
+Brak bloku 'DOTS' w poziomie gry.
+;No 'DOTS' chunk found in level.
+;
+MSG_LOAD_ERROR_NO_LINE_CHUNK
+Brak bloku 'LINE' w poziomie gry.
+;No 'LINE' chunk found in level.
+;
+MSG_LOAD_ERROR_LINE_BEFORE_DOTS
+Blok 'LINE' napotkano przed blokiem 'DOTS'.
+;'LINE' chunk encountered before 'DOTS' one.
+;
+MSG_LOAD_ERROR_TOO_MANY_DOTS
+W poziomie zdefiniowano wiêcej, ni¿ 256 kropek.
+;More than 256 dots defined in the file.
+;
+MSG_LOAD_ERROR_NEGATIVE_COORDS
+Niedozwolone ujemne wspó³rzêdne kropek.
+;Negative dot coordinates are not allowed.
+;
+MSG_LOAD_ERROR_BAD_DOT_INDEX
+Numer nieistnej±cej kropki w definicji linii.
+;Index of non-existent dot in a line definition.
+;
+MSG_LOAD_ERROR_DUPLICATE_LINE
+Wykryto duplikat linii.
+;Duplicate line detected.
+;
+MSG_LOAD_ERROR_NO_MORE_LEVELS
+Koniec pliku, nie ma wiêcej poziomów.
+;No more levels in set.
+;
+MSG_LOAD_ERROR_REQ_TITLE
+Untangle: b³±d ³adowania poziomu
+;Untangle Level Loader
+;
+MSG_LOAD_ERROR_OK_BUTTON
+OK
+;OK
+;
+MSG_LOAD_ERROR_IFFPARSE
+B³±d %ld struktury pliku IFF.
+;IFF structure parsing error %ld.
+;

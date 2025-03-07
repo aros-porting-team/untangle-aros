@@ -55,3 +55,42 @@ MSG_LEVEL_INFOBAR_TEXT (//40)
 Intersections: %ld  Moves: %ld  Time: 
 ; one space at end!
 ;
+MSG_LOAD_ERROR_NO_MEMORY (//40)
+Out of memory.
+;
+MSG_LOAD_ERROR_OPEN_FAILED (//60)
+Can't open level set \"StandardSet.iff\":\n%s.
+;
+MSG_LOAD_ERROR_NO_DOTS_CHUNK (//60)
+No 'DOTS' chunk found in level.
+;
+MSG_LOAD_ERROR_NO_LINE_CHUNK (//60)
+No 'LINE' chunk found in level.
+;
+MSG_LOAD_ERROR_LINE_BEFORE_DOTS (//60)
+'LINE' chunk encountered before 'DOTS' one.
+;
+MSG_LOAD_ERROR_TOO_MANY_DOTS (//60)
+More than 256 dots defined in the file.
+;
+MSG_LOAD_ERROR_NEGATIVE_COORDS (//60)
+Negative dot coordinates are not allowed.
+;
+MSG_LOAD_ERROR_BAD_DOT_INDEX (//60)
+Index of non-existent dot in a line definition.
+;
+MSG_LOAD_ERROR_DUPLICATE_LINE (//60)
+Duplicate line detected.
+;
+MSG_LOAD_ERROR_NO_MORE_LEVELS (//60)
+No more levels in set.
+;
+MSG_LOAD_ERROR_REQ_TITLE (//40)
+Untangle Level Loader
+;
+MSG_LOAD_ERROR_OK_BUTTON (//8)
+OK
+;
+MSG_LOAD_ERROR_IFFPARSE (//40)
+IFF structure parsing error %ld.
+;
