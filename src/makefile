@@ -31,6 +31,6 @@ main.o: main.c main.h selector.h menu.h game.h strutils.h version.h savestate.h 
 menu.o: menu.c main.h selector.h game.h loader.h savelevel.h
 savelevel.o: savelevel.c savelevel.h main.h selector.h loader.h
 savestate.o: savestate.c main.h selector.h savestate.h
-selector.o: selector.c main.h selector.h strutils.h
+selector.o: selector.c main.h selector.h strutils.h locale.h
 start.o: start.c version.h
 strutils.o: strutils.c strutils.h

@@ -50,3 +50,6 @@ static inline STRPTR LS(int lid, STRPTR defstr)
 #define MSG_MENUITEM_SAVE_LEVEL_KEY      36
 #define MSG_MENUITEM_QUIT                37
 #define MSG_MENUITEM_QUIT_KEY            38
+#define MSG_LEVEL_LIST_LEVEL             39
+#define MSG_LEVEL_LIST_MOVES             40
+#define MSG_LEVEL_LIST_TIME              41

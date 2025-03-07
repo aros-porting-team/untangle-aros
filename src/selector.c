@@ -4,6 +4,7 @@
 
 #include "main.h"
 #include "strutils.h"
+#include "locale.h"
 
 #include <proto/exec.h>
 #include <proto/intuition.h>
@@ -25,6 +26,18 @@ struct Image ScrRender;
 struct PropInfo ScrProp;
 struct Gadget Scroller;
 
+
+static void TextAutosize(struct RastPort *rp, STRPTR str)
+{
+	Text(rp, str, StrLen(str));
+}
+
+/*--------------------------------------------------------------------------------------------*/
+
+static WORD TextLengthAutosize(struct RastPort *rp, STRPTR str)
+{
+	return TextLength(rp, str, StrLen(str));
+}
 
 /*--------------------------------------------------------------------------------------------*/
 
@@ -74,14 +87,14 @@ void SelectorLayout(struct Window *mainwin, struct Selector *selector)
 	struct RastPort *rp;
 	struct TagItem tags[2] = {{ RPTAG_Font, 0 }, { TAG_END, 0 }};
 	WORD unit, len_level, len_time, len_moves;
-
+	
 	rp = mainwin->RPort;
 	tags[0].ti_Data = (LONG)&selector->Font;
 	GetRPAttrsA(rp, tags);
 	unit = (selector->Font->tf_YSize >> 2) + 1;
-	len_level = TextLength(rp, "Level", 5);
-	len_time = TextLength(rp, "Time", 4);
-	len_moves = TextLength(rp, "Moves", 5);
+	len_level = TextLengthAutosize(rp, LS(MSG_LEVEL_LIST_LEVEL, "Level"));
+	len_time = TextLengthAutosize(rp, LS(MSG_LEVEL_LIST_TIME, "Time"));
+	len_moves = TextLengthAutosize(rp, LS(MSG_LEVEL_LIST_MOVES, "Moves"));
 	
 	selector->LevelREdge = mainwin->BorderLeft + unit + len_level;
 	selector->LevelLabelX = selector->LevelREdge - len_level;
@@ -294,11 +307,11 @@ static void PrintHighScoreHeader(struct Selector *selector, WORD y)
 	struct RastPort *rp = selector->Win->RPort;
 	
 	Move(rp, selector->LevelLabelX, y);
-	Text(rp, "Level", 5);
+	TextAutosize(rp, LS(MSG_LEVEL_LIST_LEVEL, "Level"));
 	Move(rp, selector->TimeLabelX, y);
-	Text(rp, "Time", 4);
+	TextAutosize(rp, LS(MSG_LEVEL_LIST_TIME, "Time"));
 	Move(rp, selector->MovesLabelX, y);
-	Text(rp, "Moves", 5);
+	TextAutosize(rp, LS(MSG_LEVEL_LIST_MOVES, "Moves"));
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -404,8 +417,6 @@ void PrintHighScores(struct Selector *selector)
 	selector->ListYStart = selector->Win->BorderTop + font->tf_YSize + 1;
 	selector->LineHeight = font->tf_YSize;
 
-	// Printf("listing starts at level %ld.\n", level);
-	
 	hs = FindHighScoreByLevelNumber(&selector->HighScores, level); 
 
 	while(hs && hs->Node.mln_Succ && (lcount++ < selector->SlotsVisible))
