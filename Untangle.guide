@@ -1,12 +1,12 @@
 @DATABASE Untangle.guide
-@$VER: Untangle.guide 1.1 (19.10.2024)
+@$VER: Untangle.guide 1.2 (7.3.2024)
 @AUTHOR: RastPort
 @WIDTH 80
 @SMARTWRAP
 @NODE Main "Untangle"
 
 
-@{JCENTER}@{B}Untangle 1.1@{UB}
+@{JCENTER}@{B}Untangle 1.2@{UB}
 
 @{JLEFT}
 
@@ -95,7 +95,7 @@ Untangle keeps the best time and best number of moves for each level. The table
 is shown in a separate window, which also works as a level selector.
 
 
-Highscore table is opened from "Level Selector..." @{"menu item" LINK Menu}.
+Highscore table is opened from "Level List..." @{"menu item" LINK Menu}.
 
 
 Clicking on an entry in the list loads clicked level, so it can be played
@@ -118,7 +118,7 @@ The state is loaded at program start. It is saved after every solved level and
 when quitting the program.
 
 
-Dimensions and positions of the main game window and level selector window are
+Dimensions and positions of the main game window and level list window are
 stored in the file as well.
 @ENDNODE
 @NODE Menu "Menu"
@@ -129,7 +129,7 @@ Project
 
   @{B}New Game@{UB}          (LAmiga + n) - Loads level 1. Does not clear highscores.
 
-  @{B}Level Selector...@{UB} (LAmiga + l) - Opens @{"highscore table" LINK HighscoreTable} (level selector).
+  @{B}Level List...@{UB} (LAmiga + l) - Opens @{"highscore table" LINK HighscoreTable} (level list).
 
   @{B}Save Level...@{UB}     (LAmiga + s) - Saves current level to a file.
 

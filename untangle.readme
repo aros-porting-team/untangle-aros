@@ -2,7 +2,7 @@ Short:        Untangle set of dots joined by lines
 Uploader:     grzegorz.kraszewski@gmail.com (Grzegorz Kraszewski)
 Author:       grzegorz.kraszewski@gmail.com (Grzegorz Kraszewski)
 Type:         game/wb
-Version:      1.1
+Version:      1.2
 Architecture: m68k-amigaos >= 3.0
 
 Each level of Untangle consists of a set of dots connected by lines. The goal
@@ -12,5 +12,10 @@ in a window on Workbench.
 Untangle runs also on MorphOS, AmigaOS 4 and AROS, using m68k processor
 emulation.
 
+Changes in version 1.2:
+ * 25 more levels.
+ * Localization (Polish locale included).
+ 
 Untangle is an open source project, hosted on GitHub:
 https://github.com/grzegorz-kraszewski/untangle
+
