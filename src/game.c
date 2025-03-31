@@ -376,8 +376,8 @@ void UpdateInfosAfterLevelLoad(struct App *app)
 {
 	STRPTR title;
 
-	if (title = FmtNew(LS(MSG_SCREEN_TITLE, "Untangle %s: %s by %s"), (LONG)VERSION,
-	(LONG)app->Level->LevelSetName, (LONG)app->Level->LevelSetAuthor))
+	if (title = FmtNew(LS(MSG_SCREEN_TITLE, "Untangle %s: %s by %s"), (IPTR)VERSION,
+	(IPTR)app->Level->LevelSetName, (IPTR)app->Level->LevelSetAuthor))
 	{
 		if (app->DynamicScreenTitle) StrFree(app->DynamicScreenTitle);
 		app->DynamicScreenTitle = title;
@@ -385,7 +385,7 @@ void UpdateInfosAfterLevelLoad(struct App *app)
 	}
 
 	if (title = FmtNew(LS(MSG_MAIN_WINDOW_TITLE, "Untangle: %s, Level %ld"),
-	(LONG)app->Level->LevelSetName, app->LevelNumber))
+	(IPTR)app->Level->LevelSetName, app->LevelNumber))
 	{
 		if (app->DynamicWindowTitle) StrFree(app->DynamicWindowTitle);
 		app->DynamicWindowTitle = title;

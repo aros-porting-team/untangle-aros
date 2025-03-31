@@ -100,7 +100,7 @@ static void SaveState2(struct App *app, BPTR output)
 	{
 		LONG ecode;
 
-		out->iff_Stream = output;
+		out->iff_Stream = (IPTR)output;
 		InitIFFasDOS(out);
 
 		if ((ecode = OpenIFF(out, IFFF_WRITE)) == 0)

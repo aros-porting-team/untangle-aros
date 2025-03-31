@@ -79,7 +79,7 @@ BOOL HandleMenu(struct App *app, UWORD menucode)
 	{					
 		if (mit = ItemAddress(app->WinMenu, menucode))
 		{
-			running = Action(app, (ULONG)GTMENUITEM_USERDATA(mit));
+			running = Action(app, (IPTR)GTMENUITEM_USERDATA(mit));
 			menucode = mit->NextSelect;
 		}
 	}

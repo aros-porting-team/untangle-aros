@@ -99,7 +99,7 @@ static void LoadState2(struct App *app, BPTR input)
 	{
 		LONG ecode;
 
-		in->iff_Stream = input;
+		in->iff_Stream = (IPTR)input;
 		InitIFFasDOS(in);
 
 		if ((ecode = OpenIFF(in, IFFF_READ)) == 0)

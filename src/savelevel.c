@@ -68,7 +68,7 @@ static void WriteLevelIFF(struct App *app, BPTR output)
 
 	if (out = AllocIFF())
 	{
-		out->iff_Stream = output;
+		out->iff_Stream = (IPTR)output;
 		InitIFFasDOS(out);
 
 		if (OpenIFF(out, IFFF_WRITE) == 0)
@@ -117,11 +117,11 @@ void SaveLevel(struct App *app)
 		if (fr = AllocAslRequest(ASL_FileRequest, NULL))
 		{
 			if (AslRequestTags(fr,
-				ASLFR_Window, (LONG)app->Win,
+				ASLFR_Window, (IPTR)app->Win,
 				ASLFR_SleepWindow, TRUE,
-				ASLFR_TitleText, (LONG)"Save current level",
-				ASLFR_PositiveText, (LONG)"Save",
-				ASLFR_InitialDrawer, (LONG)"PROGDIR:levels",
+				ASLFR_TitleText, (IPTR)"Save current level",
+				ASLFR_PositiveText, (IPTR)"Save",
+				ASLFR_InitialDrawer, (IPTR)"PROGDIR:levels",
 				ASLFR_InitialTopEdge, app->Win->TopEdge + app->Win->BorderTop,
 				ASLFR_InitialLeftEdge, app->Win->LeftEdge + app->Win->BorderLeft,
 				ASLFR_DoSaveMode, TRUE,

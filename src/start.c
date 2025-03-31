@@ -10,13 +10,30 @@
 
 #include "version.h"
 
+#ifndef __AROS__
 struct Library *SysBase;
 struct Library *DOSBase;
 
 UBYTE DOSName[];
+#endif
 
 extern ULONG Main(struct WBStartup*);
 
+
+#ifdef __AROS__
+
+int main(int argc, char **argv)
+{
+	struct WBStartup* wbmsg = NULL;
+	if (argc == 0)
+	{
+		wbmsg = (struct WBStartup*)argv;
+	}
+
+	return Main(wbmsg);
+}
+
+#else
 
 __saveds ULONG Start(void)
 {
@@ -52,6 +69,8 @@ __saveds ULONG Start(void)
 }
 
 UBYTE DOSName[] = "dos.library";
+
+#endif
 
 __attribute__((section(".text"))) UBYTE VString[] =
 	"$VER: Untangle " VERSION " (" RELDATE ")\r\n";

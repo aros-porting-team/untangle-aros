@@ -134,11 +134,20 @@ struct App
 	WORD DotHeight;                    /* pixels */
 	BOOL TimerUsed;
 	struct MsgPort *TimerPort;
+#ifdef __AROS__
+	struct timerequest *TimerReq;
+#else
 	struct TimeRequest *TimerReq;
+#endif
 	BOOL TimerStopped;
 	struct GameTime LevelTime;
+#ifdef __AROS__
+	struct timeval LevelStart;
+	struct timeval NextSecond;
+#else
 	struct TimeVal LevelStart;
 	struct TimeVal NextSecond;
+#endif
 	struct Selector Selector;
 	struct WinPosRecord MainWinPos;
 };

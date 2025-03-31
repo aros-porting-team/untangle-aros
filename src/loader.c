@@ -260,7 +260,7 @@ static LONG OpenFile(struct GameLevel *gl, struct IFFHandle *handle, LONG level,
 
 	if (levfile = Open(filename, MODE_OLDFILE))
 	{
-		handle->iff_Stream = levfile;
+		handle->iff_Stream = (IPTR)levfile;
 		InitIFFasDOS(handle);
 		err = SkipToLevel(gl, handle, level);
 		Close(levfile);
@@ -331,12 +331,12 @@ static void ReportLoadError(struct Window *gwin, LONG err)
 	{
 		es.es_TextFormat = LS(MSG_LOAD_ERROR_IFFPARSE,
 			"IFF structure parsing error %ld.");
-		extrainfo = (STRPTR)err; 
+		extrainfo = (STRPTR)(IPTR)err; 
 	}
 	else es.es_TextFormat = LS(MSG_LOAD_ERROR_NO_MEMORY + err - 1,
 		LoadErrorMessages[err - 1]);	
 
-	EasyRequest(gwin, &es, NULL, (LONG)extrainfo);
+	EasyRequest(gwin, &es, NULL, (IPTR)extrainfo);
 }
 
 /*---------------------------------------------------------------------------*/

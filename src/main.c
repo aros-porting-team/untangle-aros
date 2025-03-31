@@ -348,8 +348,8 @@ static LONG OpenMyWindow(struct App *app)
 	LONG err = SERR_NO_WINDOW;
 	struct Screen *wb;
 
-	wintags[10].ti_Data = (LONG)DefWindowTitle;
-	wintags[11].ti_Data = (LONG)DefScreenTitle;
+	wintags[10].ti_Data = (IPTR)DefWindowTitle;
+	wintags[11].ti_Data = (IPTR)DefScreenTitle;
 
 	if (wb = LockPubScreen(NULL))
 	{
@@ -400,7 +400,11 @@ static LONG GetTimer(struct App *app)
 	if (app->TimerPort = CreateMsgPort())
 	{
 		if (app->TimerReq = (struct TimeRequest*)CreateIORequest(app->TimerPort,
+#ifdef __AROS__
+		sizeof(struct timerequest)))
+#else
 		sizeof(struct TimeRequest)))
+#endif
 		{
 			if (OpenDevice("timer.device", UNIT_WAITUNTIL, &app->TimerReq->tr_node, 0) == 0)
 			{

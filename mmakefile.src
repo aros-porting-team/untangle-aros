@@ -1,0 +1,36 @@
+# Makefile to make Untangle for AROS.
+
+include $(SRCDIR)/config/aros.cfg
+
+#MM- contrib-games-untangle : contrib-games-untangle-bin
+
+EXE    := Untangle
+EXEDIR := $(AROSDIR)/Untangle
+FILES  := \
+        src/start \
+        src/endgame \
+        src/game \
+        src/loader \
+        src/loadstate \
+        src/lscm \
+        src/main \
+        src/menu \
+        src/savelevel \
+        src/savestate \
+        src/selector \
+        src/strutils 
+
+NOWARN_FLAGS  :=
+USER_CFLAGS   := -fgnu89-inline
+USER_INCLUDES :=
+USER_LDFLAGS  :=
+USER_CPPFLAGS := -D__LOCALE_STDLIBBASE__ -D__EXEC_STDLIBBASE__ -D__GRAPHICS_STDLIBBASE__ -D__DOS_STDLIBBASE__ -D__TIMER_STDLIBBASE__ \
+    -D__INTUITION_STDLIBBASE__
+
+#MM contrib-games-untangle-bin : includes linklibs
+
+%build_prog mmake=contrib-games-untangle-bin \
+    progname=$(EXE) targetdir=$(EXEDIR) \
+    files=$(FILES) uselibs=""
+
+%common
