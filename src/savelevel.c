@@ -19,6 +19,10 @@ void WriteDots(struct GameLevel *glv, struct IFFHandle *out)
 		{
 			buf[0] = glv->DotStorage[i].Virtual.x;
 			buf[1] = glv->DotStorage[i].Virtual.y;
+#ifdef __AROS__
+			buf[0] = AROS_WORD2BE(buf[0]);
+			buf[1] = AROS_WORD2BE(buf[1]);
+#endif
 			WriteChunkRecords(out, buf, sizeof(buf), 1);
 		}
 

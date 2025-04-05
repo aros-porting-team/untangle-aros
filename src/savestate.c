@@ -35,6 +35,11 @@ static void SaveStateHighScores(struct App *app, struct IFFHandle *out)
 			{
 				hsr.seconds = hs->Seconds;
 				hsr.moves = hs->Moves;
+#ifdef __AROS__
+				/* struct HighScoreRecord contains 2 ULONG, so there won't be a alignment problem */
+				hsr.seconds = AROS_LONG2BE(hsr.seconds);
+				hsr.moves = AROS_LONG2BE(hsr.moves);
+#endif
 				ecode = WriteChunkRecords(out, &hsr, sizeof(struct HighScoreRecord), 1);
 				if (ecode == 1) ecode = 0;
 				if (ecode < 0) break;
@@ -52,17 +57,40 @@ static void SaveStateHighScores(struct App *app, struct IFFHandle *out)
 static void SaveStateWinPositions(struct App *app, struct IFFHandle *out)
 {
 	LONG ecode;
+	struct WinPosRecordFile wprf;
 
-	ecode = PushChunk(out, ID_UNTG, ID_WINP, sizeof(struct WinPosRecord) * 2);
+	ecode = PushChunk(out, ID_UNTG, ID_WINP, sizeof(struct WinPosRecordFile) * 2);
 
 	if (!ecode)
 	{
-		ecode = WriteChunkRecords(out, &app->MainWinPos, sizeof(struct WinPosRecord), 1);
+#ifdef __AROS__
+		wprf.x = AROS_WORD2BE(app->MainWinPos.x);
+		wprf.y = AROS_WORD2BE(app->MainWinPos.y);
+		wprf.w = AROS_WORD2BE(app->MainWinPos.w);
+		wprf.h = AROS_WORD2BE(app->MainWinPos.h);
+#else
+		wprf.x = app->MainWinPos.x;
+		wprf.y = app->MainWinPos.y;
+		wprf.w = app->MainWinPos.w;
+		wprf.h = app->MainWinPos.h;
+#endif
+		ecode = WriteChunkRecords(out, &wprf, sizeof(struct WinPosRecordFile), 1);
 		if (ecode == 1) ecode = 0;
 
 		if (!ecode)
 		{
-			ecode = WriteChunkRecords(out, &app->Selector.SelWinPos, sizeof(struct WinPosRecord), 1);
+#ifdef __AROS__
+			wprf.x = AROS_WORD2BE(app->Selector.SelWinPos.x);
+			wprf.y = AROS_WORD2BE(app->Selector.SelWinPos.y);
+			wprf.w = AROS_WORD2BE(app->Selector.SelWinPos.w);
+			wprf.h = AROS_WORD2BE(app->Selector.SelWinPos.h);
+#else
+			wprf.x = app->Selector.SelWinPos.x;
+			wprf.y = app->Selector.SelWinPos.y;
+			wprf.w = app->Selector.SelWinPos.w;
+			wprf.h = app->Selector.SelWinPos.h;
+#endif
+			ecode = WriteChunkRecords(out, &wprf, sizeof(struct WinPosRecordFile), 1);
 			if (ecode == 1) ecode = 0;
 		}	
 

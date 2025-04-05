@@ -32,6 +32,10 @@ static void LoadHighScores(struct App *app, struct IFFHandle *in)
 			{
 				hs->Seconds = hsr.seconds;
 				hs->Moves = hsr.moves;
+#ifdef __AROS__
+				hs->Seconds = AROS_BE2LONG(hs->Seconds);
+				hs->Moves = AROS_BE2LONG(hs->Moves);
+#endif
 				AddTail((struct List*)&app->Selector.HighScores, (struct Node*)hs);
 				app->LevelNumber++;
 				app->Selector.EntryCount++;
@@ -48,15 +52,32 @@ static void LoadHighScores(struct App *app, struct IFFHandle *in)
 
 static void LoadWinPositions(struct App *app, struct IFFHandle *in)
 {
-	struct WinPosRecord wpr[2];
+	struct WinPosRecordFile wprf[2];
 	LONG err = 0;
 
-	err = ReadChunkRecords(in, wpr, sizeof(struct WinPosRecord) * 2, 1);
+	err = ReadChunkRecords(in, wprf, sizeof(struct WinPosRecordFile) * 2, 1);
 
 	if (err == 1)
 	{
-		app->MainWinPos = wpr[0];
-		app->Selector.SelWinPos = wpr[1];
+#ifdef __AROS__
+		app->MainWinPos.x = AROS_BE2WORD(wprf[0].x);
+		app->MainWinPos.y = AROS_BE2WORD(wprf[0].y);
+		app->MainWinPos.w = AROS_BE2WORD(wprf[0].w);
+		app->MainWinPos.h = AROS_BE2WORD(wprf[0].h);
+		app->Selector.SelWinPos.x = AROS_BE2WORD(wprf[1].x);
+		app->Selector.SelWinPos.y = AROS_BE2WORD(wprf[1].y);
+		app->Selector.SelWinPos.w = AROS_BE2WORD(wprf[1].w);
+		app->Selector.SelWinPos.h = AROS_BE2WORD(wprf[1].h);
+#else
+		app->MainWinPos.x = wprf[0].x;
+		app->MainWinPos.y = wprf[0].y;
+		app->MainWinPos.w = wprf[0].w;
+		app->MainWinPos.h = wprf[0].h;
+		app->Selector.SelWinPos.x = wprf[1].x;
+		app->Selector.SelWinPos.y = wprf[1].y;
+		app->Selector.SelWinPos.w = wprf[1].w;
+		app->Selector.SelWinPos.h = wprf[1].h;
+#endif
 	}
 	else StateError(app, "reading window positions", err);
 }
