@@ -264,6 +264,58 @@ static LONG PrepareDotImage(struct App *app)
 	LONG rassize, err = SERR_NO_CHIP_MEM;
 	UWORD *fastraster;
 
+#ifdef __AROS__
+	int i;
+	for (i=0; i < sizeof (DotRaster5)/2; i++)
+	{
+		DotRaster5[i] = AROS_BE2WORD(DotRaster5[i]);
+	}
+	for (i=0; i < sizeof (DotRaster7)/2; i++)
+	{
+		DotRaster7[i] = AROS_BE2WORD(DotRaster7[i]);
+	}
+	for (i=0; i < sizeof (DotRaster9)/2; i++)
+	{
+		DotRaster9[i] = AROS_BE2WORD(DotRaster9[i]);
+	}
+	for (i=0; i < sizeof (DotRaster11)/2; i++)
+	{
+		DotRaster11[i] = AROS_BE2WORD(DotRaster11[i]);
+	}
+	for (i=0; i < sizeof (DotRaster13)/2; i++)
+	{
+		DotRaster13[i] = AROS_BE2WORD(DotRaster13[i]);
+	}
+	for (i=0; i < sizeof (DotRaster15)/2; i++)
+	{
+		DotRaster15[i] = AROS_BE2WORD(DotRaster15[i]);
+	}
+	for (i=0; i < sizeof (DotRaster5x3)/2; i++)
+	{
+		DotRaster5x3[i] = AROS_BE2WORD(DotRaster5x3[i]);
+	}
+	for (i=0; i < sizeof (DotRaster7x3)/2; i++)
+	{
+		DotRaster7x3[i] = AROS_BE2WORD(DotRaster7x3[i]);
+	}
+	for (i=0; i < sizeof (DotRaster9x5)/2; i++)
+	{
+		DotRaster9x5[i] = AROS_BE2WORD(DotRaster9x5[i]);
+	}
+	for (i=0; i < sizeof (DotRaster11x5)/2; i++)
+	{
+		DotRaster11x5[i] = AROS_BE2WORD(DotRaster11x5[i]);
+	}
+	for (i=0; i < sizeof (DotRaster13x7)/2; i++)
+	{
+		DotRaster13x7[i] = AROS_BE2WORD(DotRaster13x7[i]);
+	}
+	for (i=0; i < sizeof (DotRaster15x7)/2; i++)
+	{
+		DotRaster15x7[i] = AROS_BE2WORD(DotRaster15x7[i]);
+	}
+#endif
+
 	if (RectVertPixels(app))
 	{
 		fastraster = DotDataRct[app->DotWidth - 1];
