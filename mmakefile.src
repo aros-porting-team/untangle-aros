@@ -2,7 +2,10 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-#MM- contrib-games-untangle : contrib-games-untangle-bin
+#MM- contrib-games-untangle : \
+#MM     contrib-games-untangle-bin
+#MM     contrib-games-untangle-cpy-files
+#MM     contrib-games-untangle-cpy-icon
 
 EXE    := Untangle
 EXEDIR := $(AROSDIR)/Untangle
@@ -30,8 +33,20 @@ USER_CPPFLAGS := -D__LOCALE_STDLIBBASE__  -D__GRAPHICS_STDLIBBASE__ -D__DOS_STDL
 #MM contrib-games-untangle-bin : includes linklibs
 
 %build_prog mmake=contrib-games-untangle-bin \
-    progname=$(EXE) targetdir=$(EXEDIR) \
-    files=$(FILES) uselibs=""
+	progname=$(EXE) targetdir=$(EXEDIR) \
+	files=$(FILES) uselibs=""
+
+
+CPYFILES := LICENSE StandardSet.iff Untangle.guide untangle.readme
+%copy_files_q mmake=contrib-games-untangle-cpy-files files=$(CPYFILES) dst=$(EXEDIR)
+
+
+#MM
+contrib-games-untangle-cpy-icon : $(EXEDIR)/Untangle.info
+
+$(EXEDIR)/Untangle.info : $(SRCDIR)/$(CURDIR)/icons/Untangle-GlowIcon-opaque.info
+	$(MKDIR) $(EXEDIR)
+	$(CP) $< $@
 
 
 #MM contrib-games-untangle-strtest : includes linklibs
@@ -39,7 +54,7 @@ USER_CPPFLAGS := -D__LOCALE_STDLIBBASE__  -D__GRAPHICS_STDLIBBASE__ -D__DOS_STDL
 FILES := src/strtest src/strutils
 
 %build_prog mmake=contrib-games-untangle-strtest \
-    progname=strtest targetdir=$(EXEDIR) \
-    files=$(FILES) uselibs=""
+	progname=strtest targetdir=$(EXEDIR) \
+	files=$(FILES) uselibs=""
 
 %common
