@@ -1,6 +1,10 @@
 #ifndef UNTANGLE_MAIN_H
 #define UNTANGLE_MAIN_H
 
+/*
+This doesn't exist for AROS, so we still need
+struct timerequest and struct timeval
+*/
 #define __USE_NEW_TIMEVAL__
 
 #include <exec/types.h>
@@ -39,10 +43,10 @@ ULONG _a = (a); \
 asm("DIVU.W %2,%0": "=d" (_r): "0" (_a), "dmi" (_b): "cc"); \
 _r;})
 #else
-#define mul16(a,b) a*b
-#define mulu16(a,b) a*b
-#define div16(a,b) a/b
-#define divu16(a,b) a/b
+#define mul16(a,b) ((a)*(b))
+#define mulu16(a,b) ((a)*(b))
+#define div16(a,b) ((a)/(b))
+#define divu16(a,b) ((a)/(b))
 #endif
 
 #define ForEachFwd(l, t, v) for (v = (t*)(l)->mlh_Head; v->Node.mln_Succ; v = (t*)v->Node.mln_Succ)
@@ -51,7 +55,9 @@ _r;})
 void InitList(struct MinList *list);
 
 extern struct Library
+#ifndef __AROS__
 	*SysBase,
+#endif
 	*DOSBase,
 	*GfxBase,
 	*LayersBase,

@@ -10,7 +10,7 @@ void FmtPut(STRPTR dest, STRPTR fmt, ...);
 STRPTR FmtNew(STRPTR fmt, LONG arg1, ...);
 void FmtPut(STRPTR dest, STRPTR fmt, ...);
 #endif
-ULONG VFmtLen(STRPTR fmt, IPTR *args);
+ULONG VFmtLen(STRPTR fmt, LONG *args);
 void VFmtPut(STRPTR dest, STRPTR fmt, IPTR *args);
 STRPTR VFmtNew(STRPTR fmt, LONG *args);
 ULONG StrLen(STRPTR s);

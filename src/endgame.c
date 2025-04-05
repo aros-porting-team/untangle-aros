@@ -26,7 +26,12 @@ struct EndGameText
 	LONG len;
 };
 
+#ifdef __AROS__
+/* struct EClockVal contains 2 ULONG */
+UQUAD FractTime, FractDelta = 1;
+#else
 unsigned long long FractTime, FractDelta = 1;
+#endif
 
 //---------------------------------------------------------------------------------------------
 
@@ -54,7 +59,11 @@ static void deltaDraw(struct RastPort *rp, Point *p, short dx, short dy)
 
 void TimerDelay()
 {
+#ifdef __AROS__
+	UQUAD t;
+#else
 	unsigned long long t;
+#endif
 
 	do
 	{

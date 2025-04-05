@@ -24,13 +24,22 @@ NOWARN_FLAGS  :=
 USER_CFLAGS   := -fgnu89-inline
 USER_INCLUDES :=
 USER_LDFLAGS  :=
-USER_CPPFLAGS := -D__LOCALE_STDLIBBASE__ -D__EXEC_STDLIBBASE__ -D__GRAPHICS_STDLIBBASE__ -D__DOS_STDLIBBASE__ -D__TIMER_STDLIBBASE__ \
+USER_CPPFLAGS := -D__LOCALE_STDLIBBASE__  -D__GRAPHICS_STDLIBBASE__ -D__DOS_STDLIBBASE__ -D__TIMER_STDLIBBASE__ \
     -D__INTUITION_STDLIBBASE__
 
 #MM contrib-games-untangle-bin : includes linklibs
 
 %build_prog mmake=contrib-games-untangle-bin \
     progname=$(EXE) targetdir=$(EXEDIR) \
+    files=$(FILES) uselibs=""
+
+
+#MM contrib-games-untangle-strtest : includes linklibs
+
+FILES := src/strtest src/strutils
+
+%build_prog mmake=contrib-games-untangle-strtest \
+    progname=strtest targetdir=$(EXEDIR) \
     files=$(FILES) uselibs=""
 
 %common

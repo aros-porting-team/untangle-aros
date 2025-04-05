@@ -6,11 +6,19 @@
 #ifdef __AROS__
 #include <exec/rawfmt.h>
 #include <clib/alib_protos.h>
+//#define DEBUG 1
+#include <aros/debug.h>
 #endif
 
 #include "strutils.h"
 
+#ifdef __AROS__
+/* ExecBase contains pointer for bug() function */
+extern struct ExecBase *SysBase;
+#else
 extern struct Library *SysBase;
+#endif
+
 
 #ifndef __AROS__
 static void ProcPutChar(void)
@@ -25,24 +33,22 @@ static void ProcCountChars(void)
 }
 #endif
 
-
-ULONG VFmtLen(STRPTR fmt, IPTR *args)
+#ifndef __AROS__
+ULONG VFmtLen(STRPTR fmt, LONG *args)
 {
 	ULONG len = 0;
 
-#ifdef __AROS__
-	RawDoFmt(fmt, (RAWARG)args, RAWFMTFUNC_COUNT, &len);
-#else
 	RawDoFmt(fmt, args, ProcCountChars, &len);
-#endif
+
 	return len;
 }
-
+#endif
 
 void VFmtPut(STRPTR dest, STRPTR fmt, IPTR *args)
 {
 #ifdef __AROS__
 	RawDoFmt(fmt, (RAWARG)args, RAWFMTFUNC_STRING, dest);
+	D(bug("VFmtPut: %s -> %s\n", fmt, dest));
 #else
 	RawDoFmt(fmt, args, ProcPutChar, dest);
 #endif
@@ -55,6 +61,7 @@ void FmtPut(STRPTR dest, STRPTR fmt, ...)
 	AROS_SLOWSTACKFORMAT_PRE(fmt)
 	RawDoFmt(fmt, AROS_SLOWSTACKFORMAT_ARG(fmt), RAWFMTFUNC_STRING, dest);
 	AROS_SLOWSTACKFORMAT_POST(fmt)
+	D(bug("FmtPut: %s -> %s\n", fmt, dest));
 }
 #else
 void FmtPut(STRPTR dest, STRPTR fmt, LONG arg1, ...)
@@ -81,10 +88,18 @@ STRPTR VFmtNew(STRPTR fmt, LONG *args)
 #ifdef __AROS__
 STRPTR FmtNew(STRPTR fmt, ...)
 {
+	ULONG len = 0;
 	STRPTR dest;
+
 	AROS_SLOWSTACKFORMAT_PRE(fmt);
-	RawDoFmt(fmt, AROS_SLOWSTACKFORMAT_ARG(fmt), RAWFMTFUNC_STRING, dest);
+	RawDoFmt(fmt, AROS_SLOWSTACKFORMAT_ARG(fmt), RAWFMTFUNC_COUNT, &len);
+	/* len includes \0 */
+	if (dest = StrAlloc(len))
+	{
+		RawDoFmt(fmt, AROS_SLOWSTACKFORMAT_ARG(fmt), RAWFMTFUNC_STRING, dest);
+	}
 	AROS_SLOWSTACKFORMAT_POST(fmt);
+	D(bug("FmtNew: %s -> %s, len=%d\n", fmt, dest, len));
 	return dest;
 }
 #else

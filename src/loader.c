@@ -118,6 +118,10 @@ static LONG LoadDots(struct GameLevel *gl, struct IFFHandle *handle, WORD count)
 					gd->Virtual.x = *(WORD*)&buf[0];
 					gd->Virtual.y = *(WORD*)&buf[2];
 
+#ifdef __AROS__
+					gd->Virtual.x = AROS_WORD2BE(gd->Virtual.x);
+					gd->Virtual.y = AROS_WORD2BE(gd->Virtual.y);
+#endif
 					if ((gd->Virtual.x >= 0) && (gd->Virtual.y >= 0))
 					{
 						AddTail((struct List*)&gl->DotList, (struct Node*)gd);

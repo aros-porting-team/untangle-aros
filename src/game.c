@@ -14,6 +14,10 @@
 
 #include <intuition/intuition.h>
 
+#ifdef __AROS__
+#include <aros/debug.h>
+#endif
+
 static void PrintLevelInfo(struct App *app);
 
 /*---------------------------------------------------------------------------*/
@@ -409,7 +413,7 @@ static void PrintLevelTime(struct App *app)
 	static UBYTE tbuf[32];
 	struct RastPort *rp = app->Win->RPort;
 
-	FmtPut(tbuf, "%ld:%02ld", app->LevelTime.Min, app->LevelTime.Sec);
+	FmtPut(tbuf, "%ld:%02ld", (IPTR)app->LevelTime.Min, (IPTR)app->LevelTime.Sec);
 	SetDrMd(rp, JAM2);
 	SetAPen(rp, 1);
 	SetBPen(rp, 0);
