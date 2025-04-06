@@ -1,0 +1,36 @@
+CC = x86_64-aros-gcc 
+CFLAGS = -W -Wall -fgnu89-inline \
+	-D__LOCALE_STDLIBBASE__  -D__GRAPHICS_STDLIBBASE__ -D__DOS_STDLIBBASE__ -D__TIMER_STDLIBBASE__ \
+	-D__INTUITION_STDLIBBASE__
+
+LDFLAGS = -s
+LIBS = 
+OBJS = start.o main.o menu.o game.o loader.o lscm.o savelevel.o strutils.o selector.o \
+ savestate.o loadstate.o endgame.o
+EXE = Untangle
+
+all: $(OBJS)
+	@echo "Linking $(EXE)..."
+	@$(CC) $(LDFLAGS) -o $(EXE) $^ $(LIBS)
+
+clean:
+	rm -f $(OBJS) $(EXE)
+
+%.o: %.c
+	@echo "Compiling $@..."
+	@$(CC) $(CFLAGS) -c -o $@ $<
+
+# dependencies
+
+endgame.o: endgame.c main.h selector.h strutils.h locale.h
+game.o: game.c main.h selector.h loader.h lscm.h strutils.h version.h endgame.h locale.h
+loader.o: loader.c loader.h main.h selector.h strutils.h locale.h
+loadstate.o: loadstate.c main.h selector.h savestate.h
+lscm.o: lscm.c lscm.h main.h selector.h
+main.o: main.c main.h selector.h menu.h game.h strutils.h version.h savestate.h loader.h locale.h
+menu.o: menu.c main.h selector.h game.h loader.h savelevel.h
+savelevel.o: savelevel.c savelevel.h main.h selector.h loader.h
+savestate.o: savestate.c main.h selector.h savestate.h
+selector.o: selector.c main.h selector.h strutils.h locale.h
+start.o: start.c version.h
+strutils.o: strutils.c strutils.h
