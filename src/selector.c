@@ -89,7 +89,7 @@ void SelectorLayout(struct Window *mainwin, struct Selector *selector)
 	WORD unit, len_level, len_time, len_moves;
 	
 	rp = mainwin->RPort;
-	tags[0].ti_Data = (LONG)&selector->Font;
+	tags[0].ti_Data = (IPTR)&selector->Font;
 	GetRPAttrsA(rp, tags);
 	unit = (selector->Font->tf_YSize >> 2) + 1;
 	len_level = TextLengthAutosize(rp, LS(MSG_LEVEL_LIST_LEVEL, "Level"));
@@ -190,7 +190,7 @@ void OpenSelector(struct Window *mainwin, struct Selector *selector)
 		WA_ScreenTitle, selector->ScreenTitle,
 		WA_IDCMP, IDCMP_CLOSEWINDOW | IDCMP_NEWSIZE | IDCMP_GADGETUP | IDCMP_GADGETDOWN |
 			IDCMP_MOUSEMOVE | IDCMP_MOUSEBUTTONS | IDCMP_CHANGEWINDOW,
-		WA_Gadgets, (ULONG)&Scroller,
+		WA_Gadgets, (IPTR)&Scroller,
 		WA_NewLookMenus, TRUE,
 		WA_Activate, TRUE,
 	TAG_END))
@@ -346,7 +346,8 @@ static void SecondsToTime(LONG time, UBYTE *buf)
 static void PrintHighScoreLine(struct Selector *selector, struct HighScore *hs, LONG lvl,
  WORD y)
 {
-	LONG txtlen, p[1];
+	LONG txtlen;
+	IPTR p[1];
 	WORD x;
 	static UBYTE outbuf[16];
 	struct RastPort *rp = selector->Win->RPort;

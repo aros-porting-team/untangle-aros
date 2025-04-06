@@ -118,6 +118,10 @@ static LONG LoadDots(struct GameLevel *gl, struct IFFHandle *handle, WORD count)
 					gd->Virtual.x = *(WORD*)&buf[0];
 					gd->Virtual.y = *(WORD*)&buf[2];
 
+#ifdef __AROS__
+					gd->Virtual.x = AROS_BE2WORD(gd->Virtual.x);
+					gd->Virtual.y = AROS_BE2WORD(gd->Virtual.y);
+#endif
 					if ((gd->Virtual.x >= 0) && (gd->Virtual.y >= 0))
 					{
 						AddTail((struct List*)&gl->DotList, (struct Node*)gd);
@@ -260,7 +264,7 @@ static LONG OpenFile(struct GameLevel *gl, struct IFFHandle *handle, LONG level,
 
 	if (levfile = Open(filename, MODE_OLDFILE))
 	{
-		handle->iff_Stream = levfile;
+		handle->iff_Stream = (IPTR)levfile;
 		InitIFFasDOS(handle);
 		err = SkipToLevel(gl, handle, level);
 		Close(levfile);
@@ -331,12 +335,12 @@ static void ReportLoadError(struct Window *gwin, LONG err)
 	{
 		es.es_TextFormat = LS(MSG_LOAD_ERROR_IFFPARSE,
 			"IFF structure parsing error %ld.");
-		extrainfo = (STRPTR)err; 
+		extrainfo = (STRPTR)(IPTR)err; 
 	}
 	else es.es_TextFormat = LS(MSG_LOAD_ERROR_NO_MEMORY + err - 1,
 		LoadErrorMessages[err - 1]);	
 
-	EasyRequest(gwin, &es, NULL, (LONG)extrainfo);
+	EasyRequest(gwin, &es, NULL, (IPTR)extrainfo);
 }
 
 /*---------------------------------------------------------------------------*/

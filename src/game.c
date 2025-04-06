@@ -14,6 +14,10 @@
 
 #include <intuition/intuition.h>
 
+#ifdef __AROS__
+#include <aros/debug.h>
+#endif
+
 static void PrintLevelInfo(struct App *app);
 
 /*---------------------------------------------------------------------------*/
@@ -165,7 +169,11 @@ void EraseGame(struct App *app)
 
 static inline BOOL MaskHit(UWORD x, UWORD y, CONST UWORD *mask)
 {
+#if defined(__AROS__) && AROS_BIGENDIAN == 0
+	return (AROS_BE2WORD(mask[y]) & (0x8000 >> x));
+#else
 	return (mask[y] & (0x8000 >> x));
+#endif
 }
 
 /*---------------------------------------------------------------------------*/
@@ -376,8 +384,8 @@ void UpdateInfosAfterLevelLoad(struct App *app)
 {
 	STRPTR title;
 
-	if (title = FmtNew(LS(MSG_SCREEN_TITLE, "Untangle %s: %s by %s"), (LONG)VERSION,
-	(LONG)app->Level->LevelSetName, (LONG)app->Level->LevelSetAuthor))
+	if (title = FmtNew(LS(MSG_SCREEN_TITLE, "Untangle %s: %s by %s"), (IPTR)VERSION,
+	(IPTR)app->Level->LevelSetName, (IPTR)app->Level->LevelSetAuthor))
 	{
 		if (app->DynamicScreenTitle) StrFree(app->DynamicScreenTitle);
 		app->DynamicScreenTitle = title;
@@ -385,7 +393,7 @@ void UpdateInfosAfterLevelLoad(struct App *app)
 	}
 
 	if (title = FmtNew(LS(MSG_MAIN_WINDOW_TITLE, "Untangle: %s, Level %ld"),
-	(LONG)app->Level->LevelSetName, app->LevelNumber))
+	(IPTR)app->Level->LevelSetName, app->LevelNumber))
 	{
 		if (app->DynamicWindowTitle) StrFree(app->DynamicWindowTitle);
 		app->DynamicWindowTitle = title;
@@ -409,7 +417,7 @@ static void PrintLevelTime(struct App *app)
 	static UBYTE tbuf[32];
 	struct RastPort *rp = app->Win->RPort;
 
-	FmtPut(tbuf, "%ld:%02ld", app->LevelTime.Min, app->LevelTime.Sec);
+	FmtPut(tbuf, "%ld:%02ld", (IPTR)app->LevelTime.Min, (IPTR)app->LevelTime.Sec);
 	SetDrMd(rp, JAM2);
 	SetAPen(rp, 1);
 	SetBPen(rp, 0);

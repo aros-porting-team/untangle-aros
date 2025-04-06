@@ -16,6 +16,17 @@ struct WinPosRecord
 	WORD h;
 };
 
+#pragma pack(2)
+/* for AROS we have to enforce WORD alignment*/
+struct WinPosRecordFile
+{
+	WORD x;
+	WORD y;
+	WORD w;
+	WORD h;
+};
+#pragma pack()
+
 struct HighScore
 {
 	struct MinNode Node;

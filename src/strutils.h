@@ -3,11 +3,16 @@
 #define StrAlloc(len) (STRPTR)AllocVec((len), MEMF_ANY)
 #define StrFree(str) FreeVec(str)
 
-ULONG VFmtLen(STRPTR fmt, LONG *args);
-void VFmtPut(STRPTR dest, STRPTR fmt, LONG *args);
-void FmtPut(STRPTR dest, STRPTR fmt, LONG arg1, ...);
-STRPTR VFmtNew(STRPTR fmt, LONG *args);
+#ifdef __AROS__
+STRPTR FmtNew(STRPTR fmt, ...);
+void FmtPut(STRPTR dest, STRPTR fmt, ...);
+#else
 STRPTR FmtNew(STRPTR fmt, LONG arg1, ...);
+void FmtPut(STRPTR dest, STRPTR fmt, ...);
+#endif
+ULONG VFmtLen(STRPTR fmt, LONG *args);
+void VFmtPut(STRPTR dest, STRPTR fmt, IPTR *args);
+STRPTR VFmtNew(STRPTR fmt, LONG *args);
 ULONG StrLen(STRPTR s);
 STRPTR StrCopy(STRPTR s, STRPTR d);
 STRPTR StrClone(STRPTR s);
