@@ -330,7 +330,7 @@ static void EraseHighScoreLine(struct Selector *selector, WORD y)
 
 static void SecondsToTime(LONG time, UBYTE *buf)
 {
-	IPTR p[2];
+	LONG p[2];
 
 	if (time < 6000)
 	{
