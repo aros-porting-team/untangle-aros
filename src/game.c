@@ -170,7 +170,7 @@ void EraseGame(struct App *app)
 static inline BOOL MaskHit(UWORD x, UWORD y, CONST UWORD *mask)
 {
 #if defined(__AROS__) && AROS_BIGENDIAN == 0
-	return (mask[y] & ((~0x8000) >> x));
+	return (AROS_BE2WORD(mask[y]) & (0x8000 >> x));
 #else
 	return (mask[y] & (0x8000 >> x));
 #endif
