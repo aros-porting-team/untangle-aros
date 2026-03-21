@@ -8,7 +8,7 @@ extern struct Catalog *Cat;
 
 static inline STRPTR LS(int lid, STRPTR defstr)
 {
-	return (LocaleBase ? GetCatalogStr(Cat, lid, defstr) : defstr);
+	return (LocaleBase ? (STRPTR)GetCatalogStr(Cat, lid, defstr) : defstr);
 }
 
 #define MSG_STARTUP_NO_IFFPARSE           0

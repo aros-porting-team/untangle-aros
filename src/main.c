@@ -14,6 +14,12 @@
 #include "loader.h"
 #include "locale.h"
 
+#if defined(__AROS__)
+typedef struct timerequest utTR_t;
+#else
+typedef struct TimeRequest utTR_t;
+#endif
+
 struct Library
 	*GfxBase,
 	*LayersBase,
@@ -451,12 +457,7 @@ static LONG GetTimer(struct App *app)
 
 	if (app->TimerPort = CreateMsgPort())
 	{
-		if (app->TimerReq = (struct TimeRequest*)CreateIORequest(app->TimerPort,
-#ifdef __AROS__
-		sizeof(struct timerequest)))
-#else
-		sizeof(struct TimeRequest)))
-#endif
+		if (app->TimerReq = (utTR_t *)CreateIORequest(app->TimerPort, sizeof(utTR_t)))
 		{
 			if (OpenDevice("timer.device", UNIT_WAITUNTIL, &app->TimerReq->tr_node, 0) == 0)
 			{
@@ -491,7 +492,7 @@ static LONG GetUntanglePrefs(struct App *app, struct WBStartup *wbmsg)
 			LONG dotsize;
 			STRPTR value;
 
-			value = FindToolType((CONST_STRPTR*)dobj->do_ToolTypes, "DOTSIZE");
+			value = FindToolType((const STRPTR *)dobj->do_ToolTypes, "DOTSIZE");
 
 			if (value)
 			{
